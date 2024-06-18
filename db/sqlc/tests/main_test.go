@@ -15,7 +15,6 @@ var testQueries *db.Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	var err error
 	config, err := utils.LoadConfig("../../../")
 
 	if err != nil {
