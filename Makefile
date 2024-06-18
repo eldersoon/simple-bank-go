@@ -23,4 +23,10 @@ test:
 test-nocache:
 	go test -count=1 -v -cover ./...
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test test-nocache
+server:
+	go run main.go
+
+air:
+	air
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test test-nocache server air
