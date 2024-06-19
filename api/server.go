@@ -11,27 +11,27 @@ import (
 
 type Server struct {
 	query *sql.DB
-	store *db.Store
-	router *gin.Engine
+	store db.Store
+	Router *gin.Engine
 }
 
-func NewServer(store *db.Store) *Server {
+func NewServer(store db.Store) *Server {
 	server := &Server{
 		store: store,
+		Router: gin.Default(),
 	}
-	router := gin.Default()
 
-	router.POST("/account", server.createAccount)
-	router.GET("/account/:id", server.getAccount)
-	router.GET("/accounts", server.listAccounts)
+	server.Router.POST("/account", server.createAccount)
+	server.Router.GET("/account/:id", server.getAccount)
+	server.Router.GET("/accounts", server.listAccounts)
 
-	server.router = router
 	return server
 }
 
 func (server *Server) Start(address string, conn *sql.DB) error {
+	// Add this query for extras queries needed
 	server.query = conn
-	return server.router.Run(address)
+	return server.Router.Run(address)
 }
 
 func errorResponse(err error) gin.H {

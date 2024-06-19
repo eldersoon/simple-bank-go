@@ -19,6 +19,9 @@ sqlc:
 test:
 	go test -v -cover ./...
 
+mockdb:
+	mockgen -package mockdb -destination db/mock/store.go github.com/eldersoon/simple-bank/db/sqlc Store
+
 # this comand run tests without cache
 test-nocache:
 	go test -count=1 -v -cover ./...
@@ -29,4 +32,4 @@ server:
 air:
 	air
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test test-nocache server air
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test test-nocache server air mockdb
